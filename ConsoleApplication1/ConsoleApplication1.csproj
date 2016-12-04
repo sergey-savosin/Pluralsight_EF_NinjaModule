@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{343815A9-7AB0-4F6D-89F3-153A9FD6F528}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{0C994717-3BB0-49BD-B10D-C0E4A1ED7425}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NinjaDomain.DataModel</RootNamespace>
-    <AssemblyName>NinjaDomain.DataModel</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>ConsoleApplication1</RootNamespace>
+    <AssemblyName>ConsoleApplication1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,34 +52,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201612041438021_Initial.cs" />
-    <Compile Include="Migrations\201612041438021_Initial.Designer.cs">
-      <DependentUpon>201612041438021_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612041837294_AddBirthdayToNinja.cs" />
-    <Compile Include="Migrations\201612041837294_AddBirthdayToNinja.Designer.cs">
-      <DependentUpon>201612041837294_AddBirthdayToNinja.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="NinjaContext.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NinjaDomain.Classes\NinjaDomain.Classes.csproj">
-      <Project>{7A57A790-7094-4207-A8E5-79785DB6ABBB}</Project>
+      <Project>{7a57a790-7094-4207-a8e5-79785db6abbb}</Project>
       <Name>NinjaDomain.Classes</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612041438021_Initial.resx">
-      <DependentUpon>201612041438021_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612041837294_AddBirthdayToNinja.resx">
-      <DependentUpon>201612041837294_AddBirthdayToNinja.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\NinjaDomain.DataModel\NinjaDomain.DataModel.csproj">
+      <Project>{343815a9-7ab0-4f6d-89f3-153a9fd6f528}</Project>
+      <Name>NinjaDomain.DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
