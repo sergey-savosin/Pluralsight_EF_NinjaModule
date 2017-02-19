@@ -22,7 +22,9 @@ namespace ConsoleApplication1
             //RetrieveDataWithStoredProc();
             //DeleteNinja();
             //DeleteNinjaViaStoredProcedure();
-            InsertNinjaWithEquipment();
+            //InsertNinjaWithEquipment();
+            //SimpleNinjaGraphQuery();
+            ProjectionQuery();
             Console.ReadLine();
         }
 
@@ -197,6 +199,29 @@ namespace ConsoleApplication1
                 ninja.EquipmentOwned.Add(muscles);
                 ninja.EquipmentOwned.Add(spunk);
                 context.SaveChanges();
+            }
+        }
+        private static void SimpleNinjaGraphQuery()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = context.Ninjas
+                    .FirstOrDefault(n => n.Name.StartsWith("Kacy"));
+                Console.WriteLine("Ninja retrieved:" + ninja.Name);
+                context.Entry(ninja).Collection(n => n.EquipmentOwned).Load();
+                Console.WriteLine("Ninja equipment count: {0}", ninja.EquipmentOwned.Count());
+            }
+        }
+        private static void ProjectionQuery()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninjas = context.Ninjas
+                    .Select(n => new { n.Name, n.DateOfBirth, n.EquipmentOwned })
+                    .ToList();
             }
         }
     }
