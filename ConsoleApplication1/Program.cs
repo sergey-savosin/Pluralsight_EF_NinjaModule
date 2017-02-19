@@ -17,7 +17,12 @@ namespace ConsoleApplication1
             //InsertMultipleNinjas();
             //SimpleNinjaQueries();
             //QueryAndUpdateNinja();
-            QueryAndUpdateNinjaDisconnected();
+            //QueryAndUpdateNinjaDisconnected();
+            //RetrieveDataWithFind();
+            //RetrieveDataWithStoredProc();
+            //DeleteNinja();
+            //DeleteNinjaViaStoredProcedure();
+            InsertNinjaWithEquipment();
             Console.ReadLine();
         }
 
@@ -107,6 +112,90 @@ namespace ConsoleApplication1
                 context.Database.Log = Console.WriteLine;
                 context.Ninjas.Attach(ninja);
                 context.Entry(ninja).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        private static void RetrieveDataWithFind()
+        {
+            var keyval = 4;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninja = context.Ninjas.Find(keyval);
+                Console.WriteLine("After find #1: " + ninja.Name);
+
+                var someNinja = context.Ninjas.Find(keyval);
+                Console.WriteLine("after find #2: " + someNinja.Name);
+                ninja = null;
+            }
+        }
+        private static void RetrieveDataWithStoredProc()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                var ninjas = context.Ninjas.SqlQuery("exec dbo.GetOldNinjas");
+                foreach(var ninja in ninjas)
+                {
+                    Console.WriteLine(ninja.Name);
+                }
+            }
+        }
+        private static void DeleteNinja()
+        {
+            Ninja ninja;
+
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                ninja = context.Ninjas.FirstOrDefault();
+                //context.Ninjas.Remove(ninja);
+                //context.SaveChanges();
+            }
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                //context.Ninjas.Attach(ninja);
+                //context.Ninjas.Remove(ninja);
+                context.Entry(ninja).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+        }
+        private static void DeleteNinjaViaStoredProcedure()
+        {
+            var keyval = 3;
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                context.Database.ExecuteSqlCommand("exec dbo.DeleteNinjaViaId {0}", keyval);
+            }
+        }
+        private static void InsertNinjaWithEquipment()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                var ninja = new Ninja
+                {
+                    Name = "Kacy Catanzaro",
+                    ServedInOniwaban = false,
+                    DateOfBirth = new DateTime(1990, 1, 14),
+                    ClanId = 1
+                };
+                var muscles = new NinjaEquipment
+                {
+                    Name = "Muscles",
+                    Type = EquipmentType.Tool
+                };
+                var spunk = new NinjaEquipment
+                {
+                    Name = "Spunk",
+                    Type = EquipmentType.Weapon
+                };
+                context.Ninjas.Add(ninja);
+                ninja.EquipmentOwned.Add(muscles);
+                ninja.EquipmentOwned.Add(spunk);
                 context.SaveChanges();
             }
         }
