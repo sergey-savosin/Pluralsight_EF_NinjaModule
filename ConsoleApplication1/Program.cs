@@ -73,7 +73,7 @@ namespace ConsoleApplication1
             {
                 context.Database.Log = Console.WriteLine;
                 DateTime dt = new DateTime(1984, 1, 1);
-                string nm = "Raphael";
+                //string nm = "Raphael";
                 var ninjas = context.Ninjas
                     .Where(n => n.DateOfBirth >= dt)
                     .OrderBy(n => n.Name)
