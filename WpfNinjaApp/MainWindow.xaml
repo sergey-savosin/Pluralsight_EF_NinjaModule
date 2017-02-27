@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:WpfNinjaApp"
         xmlns:Classes="clr-namespace:NinjaDomain.Classes;assembly=NinjaDomain.Classes" x:Class="WpfNinjaApp.MainWindow"
         mc:Ignorable="d"
@@ -10,6 +11,11 @@
     <Window.Resources>
         <ObjectDataProvider x:Key="ninjaViewSource"/>
         <CollectionViewSource x:Key="ninjaEquipmentOwnedViewSource" Source="{Binding EquipmentOwned, Source={StaticResource ninjaViewSource}}"/>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Classes:EquipmentType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid DataContext="{StaticResource ninjaEquipmentOwnedViewSource}" Margin="0,0,-121,-114">
 
@@ -59,8 +65,11 @@
         <DataGrid x:Name="equipmentOwnedDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="301,223,168,168" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader" Visibility="Hidden"/>
-                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="typeColumn" Binding="{Binding Type}" Header="Type" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="6*"/>
+                <DataGridComboBoxColumn x:Name="equipTypeColumn"
+                                    SelectedItemBinding="{Binding Type}" 
+                                    ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                                    Header="Type" Width="4*"/>
             </DataGrid.Columns>
         </DataGrid>
         <ListBox x:Name="ninjaListBox" HorizontalAlignment="Left" Height="139" Margin="40,18,0,0" VerticalAlignment="Top" Width="194" SelectionChanged="ninjaListBox_SelectionChanged" SelectedValuePath="Id" DisplayMemberPath="Name"/>
@@ -75,13 +84,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Content="Clan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="clanComboBox" Grid.Column="1" DisplayMemberPath="Clan" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120" SelectionChanged="clanComboBox_SelectionChanged">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
+            <ComboBox x:Name="clanComboBox" Grid.Column="1" 
+                      DisplayMemberPath="ClanName"
+                      SelectedValuePath="Id"
+                      SelectedValue="{Binding ElementName=ninjaListBox,
+                            Path=SelectedItem.ClanId,
+                            Mode=OneWayToSource}"
+                      HorizontalAlignment="Left" Height="Auto" 
+                      ItemsSource="{Binding}" Margin="3" Grid.Row="0" 
+                      VerticalAlignment="Center" Width="120" 
+                      SelectionChanged="clanComboBox_SelectionChanged" />
         </Grid>
 
     </Grid>
