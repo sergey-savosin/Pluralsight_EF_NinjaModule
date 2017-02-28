@@ -17,7 +17,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
-    <Grid DataContext="{StaticResource ninjaEquipmentOwnedViewSource}" Margin="0,0,-121,-114">
+    <Grid DataContext="{StaticResource ninjaEquipmentOwnedViewSource}" >
 
         <Grid x:Name="grid1" VerticalAlignment="Top" Margin="40,172,0,0" HorizontalAlignment="Left" DataContext="{StaticResource ninjaViewSource}">
             <Grid.RowDefinitions>
@@ -62,7 +62,7 @@
             <Label Content="Date Of Birth:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
             <DatePicker x:Name="dateOfBirthDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" SelectedDate="{Binding DateOfBirth, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" SelectedDateChanged="dateOfBirthDatePicker_SelectedDateChanged"/>
         </Grid>
-        <DataGrid x:Name="equipmentOwnedDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="301,223,168,168" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="equipmentOwnedDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="301,223,30,50" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader" Visibility="Hidden"/>
                 <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="6*"/>
