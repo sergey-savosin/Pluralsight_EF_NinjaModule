@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfNinjaApp", "WpfNinjaApp\WpfNinjaApp.csproj", "{FF077755-AEF5-4FC0-80C0-DD6125B4242D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mvc5", "mvc5", "{570BE94A-9EB9-4F73-87B0-C794E62606BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcNinjaApp", "MvcNinjaApp\MvcNinjaApp.csproj", "{2E269574-95BC-4218-BF47-0125E2509778}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +37,15 @@ Global
 		{FF077755-AEF5-4FC0-80C0-DD6125B4242D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF077755-AEF5-4FC0-80C0-DD6125B4242D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF077755-AEF5-4FC0-80C0-DD6125B4242D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E269574-95BC-4218-BF47-0125E2509778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E269574-95BC-4218-BF47-0125E2509778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E269574-95BC-4218-BF47-0125E2509778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E269574-95BC-4218-BF47-0125E2509778}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2E269574-95BC-4218-BF47-0125E2509778} = {570BE94A-9EB9-4F73-87B0-C794E62606BD}
 	EndGlobalSection
 EndGlobal
