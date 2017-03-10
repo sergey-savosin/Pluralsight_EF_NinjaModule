@@ -35,10 +35,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Clan.ClanName)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Clan.ClanName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ServedInOniwaban)
@@ -47,10 +47,10 @@
             @Html.DisplayFor(modelItem => item.DateOfBirth)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @Html.DisplayFor(modelItem => item.DateCreated, "{0:d}")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
+            @Html.DisplayFor(modelItem => item.DateModified, "{0:d}")
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

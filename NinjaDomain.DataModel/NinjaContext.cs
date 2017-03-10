@@ -2,6 +2,7 @@
 using NinjaDomain.Classes.Interfaces;
 using System;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 
 namespace NinjaDomain.DataModel
@@ -17,6 +18,13 @@ namespace NinjaDomain.DataModel
             modelBuilder.Types()
                 .Configure(c => c.Ignore("IsDirty"));
             base.OnModelCreating(modelBuilder);
+            // custom CultureInfo for editing decimals in Price fields
+            var newCulture = (CultureInfo)CultureInfo.CreateSpecificCulture("En-us");// .CurrentCulture.Clone();
+            newCulture.NumberFormat.NumberGroupSeparator = "~";
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = newCulture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = newCulture;
+
         }
         public override int SaveChanges()
         {

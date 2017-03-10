@@ -13,12 +13,14 @@ namespace MvcNinjaApp.Controllers
 {
     public class NinjasController : Controller
     {
-        private NinjaContext db = new NinjaContext();
+        //private NinjaContext db = new NinjaContext();
+        private readonly DisconnectedRepository _repo = new DisconnectedRepository();
 
         // GET: Ninjas
         public ActionResult Index()
         {
-            var ninjas = db.Ninjas.Include(n => n.Clan);
+            //var ninjas = db.Ninjas.Include(n => n.Clan);
+            var ninjas = _repo.GetNinjaWithClan();
             return View(ninjas.ToList());
         }
 
@@ -29,7 +31,8 @@ namespace MvcNinjaApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ninja ninja = db.Ninjas.Find(id);
+            //Ninja ninja = db.Ninjas.Find(id);
+            var ninja = _repo.GetNinjaWithEquipmentAndClan(id);
             if (ninja == null)
             {
                 return HttpNotFound();
