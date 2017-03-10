@@ -32,7 +32,7 @@ namespace MvcNinjaApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Ninja ninja = db.Ninjas.Find(id);
-            var ninja = _repo.GetNinjaWithEquipmentAndClan(id);
+            var ninja = _repo.GetNinjaWithEquipmentAndClan(id.Value);
             if (ninja == null)
             {
                 return HttpNotFound();
@@ -43,7 +43,7 @@ namespace MvcNinjaApp.Controllers
         // GET: Ninjas/Create
         public ActionResult Create()
         {
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName");
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName");
             return View();
         }
 
@@ -52,16 +52,16 @@ namespace MvcNinjaApp.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ServedInOniwaban,ClanId,DateOfBirth,DateCreated,DateModified")] Ninja ninja)
+        public ActionResult Create(
+            [Bind(Include = "Id,Name,ServedInOniwaban,ClanId,DateOfBirth,DateCreated,DateModified")] Ninja ninja)
         {
             if (ModelState.IsValid)
             {
-                db.Ninjas.Add(ninja);
-                db.SaveChanges();
+                _repo.SaveNewNinja(ninja);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName", ninja.ClanId);
             return View(ninja);
         }
 
@@ -72,12 +72,12 @@ namespace MvcNinjaApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ninja ninja = db.Ninjas.Find(id);
+            Ninja ninja = _repo.GetNinjaWithEquipment(id.Value);
             if (ninja == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName", ninja.ClanId);
             return View(ninja);
         }
 
@@ -86,15 +86,15 @@ namespace MvcNinjaApp.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ServedInOniwaban,ClanId,DateOfBirth,DateCreated,DateModified")] Ninja ninja)
+        public ActionResult Edit(
+            [Bind(Include = "Id,Name,ServedInOniwaban,ClanId,DateOfBirth,DateCreated,DateModified")] Ninja ninja)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ninja).State = EntityState.Modified;
-                db.SaveChanges();
+                _repo.SaveUpdatedNinja(ninja);
                 return RedirectToAction("Index");
             }
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName", ninja.ClanId);
             return View(ninja);
         }
 
@@ -105,7 +105,8 @@ namespace MvcNinjaApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ninja ninja = db.Ninjas.Find(id);
+
+            Ninja ninja = _repo.GetNinjaById(id.Value);
             if (ninja == null)
             {
                 return HttpNotFound();
@@ -118,19 +119,12 @@ namespace MvcNinjaApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Ninja ninja = db.Ninjas.Find(id);
-            db.Ninjas.Remove(ninja);
-            db.SaveChanges();
+            _repo.DeleteNinja(id);
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

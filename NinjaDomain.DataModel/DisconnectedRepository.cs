@@ -75,6 +75,13 @@ namespace NinjaDomain.DataModel
                 context.SaveChanges();
             }
         }
+        public NinjaEquipment GetEquipmentById(int id)
+        {
+            using (var context = new NinjaContext())
+            {
+                return context.Equipment.Find(id);
+            }
+        }
         public void SaveNewEquipment(NinjaEquipment equipment, int ninjaId)
         {
             using (var context = new NinjaContext())

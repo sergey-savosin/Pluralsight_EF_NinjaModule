@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NinjaEquipmentsController.cs" />
     <Compile Include="Controllers\NinjasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -240,6 +241,11 @@
     <Content Include="Views\Ninjas\Details.cshtml" />
     <Content Include="Views\Ninjas\Edit.cshtml" />
     <Content Include="Views\Ninjas\Index.cshtml" />
+    <Content Include="Views\NinjaEquipments\Create.cshtml" />
+    <Content Include="Views\NinjaEquipments\Delete.cshtml" />
+    <Content Include="Views\NinjaEquipments\Details.cshtml" />
+    <Content Include="Views\NinjaEquipments\Edit.cshtml" />
+    <Content Include="Views\NinjaEquipments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
