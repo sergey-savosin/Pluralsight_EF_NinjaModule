@@ -99,7 +99,8 @@ namespace NinjaDomain.DataModel
                 //var ninja = context.Ninjas.Find(ninjaId);
                 //equipment.Ninja = ninja;
                 var equipmentWithNinjaFromDatabase =
-                    context.Equipment.Include(n => n.Ninja).FirstOrDefault(e => e.Id == ninjaId);
+                    context.Equipment.Include(n => n.Ninja)
+                    .FirstOrDefault(e => e.Id == equipment.Id);
                 context.Entry(equipmentWithNinjaFromDatabase).CurrentValues.SetValues(equipment);
                 context.SaveChanges();
             }

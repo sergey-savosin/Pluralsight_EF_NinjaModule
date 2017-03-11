@@ -17,8 +17,10 @@ namespace MvcNinjaApp.Controllers
         private readonly DisconnectedRepository _repo = new DisconnectedRepository();
 
         // GET: NinjaEquipments/Create
-        public ActionResult Create()
+        public ActionResult Create(int ninjaId, string ninjaName)
         {
+            ViewBag.NinjaId = ninjaId;
+            ViewBag.NinjaName = ninjaName;
             return View();
         }
 
@@ -28,12 +30,12 @@ namespace MvcNinjaApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(
-            [Bind(Include = "Id,Name,Type,DateCreated,DateModified")] NinjaEquipment ninjaEquipment)
+            [Bind(Include = "Id,Name,Type,DateCreated,DateModified,NinjaId")] NinjaEquipment ninjaEquipment)
         {
             int ninjaId;
             if (!int.TryParse(Request.Form["NinjaId"], out ninjaId))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "user desc");
             }
             _repo.SaveNewEquipment(ninjaEquipment, ninjaId);
             return RedirectToAction("Edit", "Ninjas", new { id = ninjaId });

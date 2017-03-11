@@ -16,6 +16,8 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.DateCreated)
+        @Html.HiddenFor(model => model.DateModified)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -65,6 +67,8 @@
             <tr>
                 <th>Name</th>
                 <th>Type</th>
+                <th>Created</th>
+                <th>Modifed</th>
                 <th></th>
             </tr>
         </thead>
@@ -73,6 +77,8 @@
             <tr>
                 <td width="100">@item.Name</td>
                 <td width="100">@item.Type</td>
+                <td width="100">@item.DateCreated</td>
+                <td width="100">@item.DateModified</td>
                 <td>@Html.ActionLink("Edit", "Edit", "NinjaEquipments", new { id = item.Id, ninjaId = Model.Id }, null)</td>
             </tr>
         }
